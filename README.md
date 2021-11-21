@@ -1,4 +1,4 @@
-# Getting Started React forms handler
+# Getting Started with React forms handler
 
 This project is inspired from angular reactive form. 
 

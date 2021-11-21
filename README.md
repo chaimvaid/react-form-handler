@@ -2,12 +2,26 @@
 
 This project is inspired from angular reactive form. 
 
-### `npm i react-forms-handler`
+```npm i react-forms-handler```
 
-React form handler's form was designed to work with both forms of react's components, it can be Initialized with:
+React form handler's form was designed to work with both forms of react's components, it can be Initialized by 2 ways:
 
-### `new Form({login: ''})`
+1. For class component use class form.
+    ```
+        new Form({login: ''})
+    ```
+2. For function component use hooks. 
+    ```
+    import {useForm} from 'react-forms-handler';
+
+    let loginForm = useForm({login: ''})
+       
+    ```
+
+
 
 # contribution
 
-### `npm install --ignore-scripts`
+We have pre and post publish scripts so you need to ignore them while installation 
+
+```npm install --ignore-scripts```

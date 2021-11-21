@@ -9,5 +9,9 @@
     "postpublish": "node .scripts/restore-pkg"
   },
   "author": "Chaim Vaidberg",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chaimvaid/react-form-handler.git"
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "react-forms-handler",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Form object inspired by Angular reactive form . A new way to handle forms in react apps",
   "main": "index.js",
   "scripts": {

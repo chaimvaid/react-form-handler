@@ -40,13 +40,11 @@ react-forms-handler has three entities that can be initialized separately
         'email': ['',validator.isEmail],
         'password': ['', validator.isStrongPassword]
     })
-
     ```
 
 # Hooks usage
 
     ```
-        
         import {useForm} from 'react-forms-handler'
         import validator from 'validator';
         import React, { useState, useEffect } from 'react';

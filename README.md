@@ -2,7 +2,6 @@
 
 This project is inspired from angular reactive form. 
 
-Important note! all samples in this Doc weren't tested. syntax can be wrong.
 
 ```
 npm i react-forms-handler
@@ -46,6 +45,15 @@ let form = new Form({
 })
 ```
 
+Each field have field.valid property 
+
+```
+ const form = new Form({username: '})
+ 
+ <button  type="submit"  disabled={!form.fields.username.valid}>Submit</button>
+```
+
+
 # Hooks usage
 
 ```
@@ -74,7 +82,7 @@ let form = new Form({
             *  bound to the form . onBlur also bound to detect filed.touched  
             */
             
-            <form className="offset-sm-1 col-sm-10 d-flex flex-column">
+            <form >
                 <label htmlFor="email" >Email</label>
                 <input type="text"  id="email" {...username.inputProps} />
                 {!username.valid && <div id="email-error">

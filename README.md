@@ -57,7 +57,7 @@ let form = new Form({
 
         /*
         *  We can destruct from . 
-        *  despite of form.valid and form.value you can get all the field by their name
+        *  In addition to form.valid and form.value you can get all the field by their name
         *  Be aware! validator isn't part of our package . you can use your favorite
         *  validation package 
         */

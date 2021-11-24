@@ -1,6 +1,10 @@
 # Getting Started with React forms handler
 
-This project is inspired from angular reactive form. 
+This library provides form object that can be used by React's hooks and class components
+
+* Lightweight library.
+* Zero dependencies.
+* Inspired from angular reactive form.
 
 
 ```
@@ -45,10 +49,10 @@ let form = new Form({
 })
 ```
 
-Each field have field.valid property 
+Each field has field.valid property 
 
 ```
- const form = new Form({username: '})
+ const form = new Form({username: ''})
  
  <button  type="submit"  disabled={!form.fields.username.valid}>Submit</button>
 ```
@@ -102,7 +106,65 @@ Each field have field.valid property
     export default LoginComponent;
 ```
 
+# Class usage
+
+```
+    import {Form} from 'react-forms-handler'
+    import validator from 'validator';
+    import React from 'react';
+
+    Class LoginComponent extends React.Component {{
+
+        constructor(){
+            this.form = new Form({
+                username: ['', validator.isEmail],
+                password: ['', validator.isStrongPassword]
+            });
+
+            this.state = {
+                formValid = this.form.valid
+            }
+        }
+
+        componentDidMount() {
+            this.form.stateChange.subscribe(()=>{
+                this.setState({
+                    formValid = this.form.valid
+                })
+            })
+        }
+
+
+
+        
+        render() {
+
+            return (
+                <form >
+                    <label htmlFor="email" >Email</label>
+                    <input type="text"  id="email" {...this.form.fields.username.inputProps} />
+                    {!this.form.fields.username.valid && <div id="email-error">
+                        Should be valid email!
+                    </div>}
+                    <label htmlFor="inputPassword" >Password</label>
+                    <input type="password" id="password" {...this.form.fields.password.inputProps}/>
+                    {!this.form.fields.password.valid && <div id="password-error" >
+                        Length should be 8, password should contain at least Letters, Capital, symbol and number!
+                    </div>}
+                    <button  type="submit"  disabled={!this.state.formValid}>Submit</button>
+                </form>
+            
+            )
+        }
+    }
+        
+
+    export default LoginComponent;
+```
+
 # contribution
+
+This library is fully tested contribution must be supported by Unit test.  
 
 We have pre and post publish scripts so you need to ignore them while installation 
 

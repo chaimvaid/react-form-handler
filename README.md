@@ -106,6 +106,30 @@ Each field has field.valid property
     export default LoginComponent;
 ```
 
+useField
+
+Sometimes you have just one field . in such cases you don't need to use entire form Object. 
+
+```
+import {useField} from 'react-forms-handler'
+import validator from 'validator';
+
+function NameComponent () {
+    let email = useField(['', validator.isEmail])  
+    return (
+        <div>
+            <input {...email.inputProps} />
+            {email && email.valid && email.touched && <p>
+                {email.value}
+            </p>}
+        </div>
+    ) 
+}
+
+export default NameComponent;
+
+```
+
 # Class usage
 
 ```

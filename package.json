@@ -2,11 +2,12 @@
   "name": "react-forms-handler",
   "version": "1.0.10",
   "description": "Form object inspired by Angular reactive form . A new way to handle forms in react apps",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "jest",
     "prepublish": "node .scripts/clean-pkg",
-    "postpublish": "node .scripts/restore-pkg"
+    "postpublish": "node .scripts/restore-pkg",
+    "build": "npx babel form --out-dir lib"
   },
   "author": "Chaim Vaidberg",
   "license": "MIT",
@@ -15,7 +16,9 @@
     "url": "https://github.com/chaimvaid/react-form-handler.git"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.16.4",
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
     "@babel/preset-react": "^7.16.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",

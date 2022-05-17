@@ -4,7 +4,7 @@
   "description": "Form object inspired by Angular reactive form . A new way to handle forms in react apps",
   "main": "lib/",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll",
     "prepublish": "node .scripts/clean-pkg",
     "postpublish": "node .scripts/restore-pkg",
     "build": "npx babel form --out-dir lib"

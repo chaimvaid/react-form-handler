@@ -73,6 +73,23 @@ describe('Form',()=>{
             expect(f.fields.field2).toBeInstanceOf(Fields)
             
         })
+
+        it('should set nested field as form  ', ()=>{
+            let validator = jest.fn();
+            validator.mockReturnValueOnce(true).mockReturnValueOnce(false)
+            let formObj = {
+                'nested': {
+                    'field': 'value'
+                },
+    
+            };
+            let f = new Form(formObj)
+            
+            expect(f.fields.nested.fields.field.value).toBe('value')
+            expect(f.fields.nested).toBeInstanceOf(Form)
+            expect(f.value).toMatchObject(formObj);
+            
+        })
         // it('should pass validators into fields', ()=>{
         //     let validator = jest.fn();
         //     validator.mockReturnValue(false);

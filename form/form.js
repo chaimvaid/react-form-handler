@@ -40,12 +40,18 @@ export class Form {
     }
 
     _add(fieldVal) {
+        let field
         if(fieldVal instanceof Fields) {
             fieldVal.stateChange.subscribe(()=>{ this.stateChange.publish(this.value)})
             return fieldVal
         } else {
-            let field = new Field(...(Array.isArray(fieldVal) ? fieldVal : [fieldVal]))
-            field.stateChange.subscribe(()=>{ this.stateChange.publish(this.value)})
+            if (typeof fieldVal === 'object' &&!Array.isArray(fieldVal) && fieldVal !== null) {
+                field = new Form(fieldVal)
+                field.stateChange.subscribe(()=>{ this.stateChange.publish(this.value)})
+            } else {
+                field = new Field(...(Array.isArray(fieldVal) ? fieldVal : [fieldVal]))
+                field.stateChange.subscribe(()=>{ this.stateChange.publish(this.value)})
+            }
             return field;
         }
     }

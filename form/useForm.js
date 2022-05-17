@@ -8,6 +8,6 @@ export function useForm (formParams) {
         setRandom(Math.floor(Math.random() * 1000000000))
         subscription.unsubscribe();
     })
-    let formProps = {valid: form.valid, value: form.value}
+    let formProps = {form , valid: form.valid, value: form.value}
     return Object.keys(form.fields).reduce((o, k)=>Object.assign(o, {[k]: form.fields[k]}),formProps)
 }

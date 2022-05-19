@@ -18,6 +18,14 @@ describe('Form',()=>{
         expect(f.hasOwnProperty('fields')).toBeTruthy()
     })
 
+    it('should call valueChange publish when form.add is called', ()=>{
+        let f = new Form({});
+        jest.spyOn(f.stateChange, 'publish')
+        f.add('test');
+        expect(f.stateChange.publish).toHaveBeenCalledWith(f.value)
+    })
+
+
     describe('constructor', ()=>{
         it('should throw error if fields isn\'t object', ()=>{
             let f = () => {
@@ -75,8 +83,6 @@ describe('Form',()=>{
         })
 
         it('should set nested field as form  ', ()=>{
-            let validator = jest.fn();
-            validator.mockReturnValueOnce(true).mockReturnValueOnce(false)
             let formObj = {
                 'nested': {
                     'field': 'value'
@@ -89,6 +95,22 @@ describe('Form',()=>{
             expect(f.fields.nested).toBeInstanceOf(Form)
             expect(f.value).toMatchObject(formObj);
             
+        })
+        describe('changeFieldName', () => {
+            it('should be able to change field name dynamically  ', ()=>{
+                
+                let formObj = {
+                    'nested': {
+                        'field': 'value'
+                    },
+        
+                };
+                let f = new Form(formObj)
+                f.changeFieldName('nested', 'newName')
+                expect(f.fields.newName.fields.field.value).toBe('value')
+                expect(f.value).not.toMatchObject(formObj);
+                
+            })
         })
         // it('should pass validators into fields', ()=>{
         //     let validator = jest.fn();

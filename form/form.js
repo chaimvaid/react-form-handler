@@ -27,6 +27,7 @@ export class Form {
                 this.fields[k] = this._add(field[k])
             })
         }
+        this.stateChange.publish(this.value)
     }
 
     remove (name) {
@@ -54,6 +55,11 @@ export class Form {
             }
             return field;
         }
+    }
+
+    changeFieldName (oldName, newName) {
+        this.fields[newName] =this.fields[oldName];
+        delete this.fields[oldName];
     }
 
     stateChange = new Publisher

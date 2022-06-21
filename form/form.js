@@ -62,6 +62,26 @@ export class Form {
         delete this.fields[oldName];
     }
 
+    // This function can get Form.fields or Field
+    clearAllFields (formFieldsOrFieldObject) {
+        formFieldsOrFieldObject = formFieldsOrFieldObject || this.fields;
+        if (formFieldsOrFieldObject instanceof Field) {
+            formFieldsOrFieldObject.value = '';
+        } else {
+            Object.keys(formFieldsOrFieldObject).forEach(k => {
+                if (formFieldsOrFieldObject[k] instanceof Field) {
+                    formFieldsOrFieldObject[k].value = '';
+                } else if (formFieldsOrFieldObject[k] instanceof Fields) {
+                    formFieldsOrFieldObject[k].fields.forEach(f => {
+                        this.clearAllFields(f)
+                    })
+                } else if (formFieldsOrFieldObject[k] instanceof Form) {
+                    this.clearAllFields(formFieldsOrFieldObject[k].fields)
+                }
+            })
+        }
+    }
+
     stateChange = new Publisher
 
 

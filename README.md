@@ -185,7 +185,13 @@ export default NameComponent;
 
     export default LoginComponent;
 ```
+# clearAllFields
 
+you can call clearAllFields in this way this function will clear all form's fields value to empty string
+
+```
+form.clearAllFields()
+```
 # contribution
 
 This library is fully tested contribution must be supported by Unit test.  

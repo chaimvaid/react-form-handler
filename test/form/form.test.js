@@ -286,4 +286,18 @@ describe('Form',()=>{
             expect(fn).toBeCalledTimes(3)
         })
     })
+
+    describe('clearAllFields', () => {
+        it('should reset all form fields to zero value', () => {
+            let f = new Form({
+                'field1': {testForm: 'value1'},
+                'field2': 'value2',
+                'fields': new Fields(['value3', 'value4'])
+            })
+            f.clearAllFields()
+            expect(f.fields.field1.fields.testForm.value).toBe('')
+            expect(f.fields.field2.value).toBe('')
+            expect(f.fields.fields.fields[0].value).toBe('')
+        })
+    })
 })

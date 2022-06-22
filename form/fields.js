@@ -1,10 +1,11 @@
 import {ErrorMsg} from './errors'
 import { Field } from './field';
+import { Form } from './form';
 import { Publisher } from './publisher';
 
 export class Fields {
     
-    fields;
+    fields = [];
     validators;
 
     constructor (fields, validators) {
@@ -12,7 +13,7 @@ export class Fields {
             throw Error(ErrorMsg.MUST_BE_ARRAY)
         }
         this.validators = validators;
-        this.fields = fields.map(f=>(new Field(f, validators)))
+        fields.map(f=>this._add(f))
         this.fields.forEach(f => {
             f.stateChange.subscribe(()=>{this.stateChange.publish(this.value)})
         });
@@ -22,8 +23,16 @@ export class Fields {
         return !this.fields.find(f=>!f.valid);
     }
 
-    add(value){
-        this.fields.push(new Field(value, this.validators))
+    _add(value){
+        if (value instanceof Object) {
+            this.fields.push(new Form([value, this.validators]))
+        } else {
+            this.fields.push(new Field(value, this.validators))
+        }
+    }
+
+    add (value) {
+        this._add(value);
     }
 
     removeAt(position){

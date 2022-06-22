@@ -33,10 +33,22 @@ export class Fields {
 
     add (value) {
         this._add(value);
+        this.stateChange.publish(this.value)
     }
 
     removeAt(position){
         this.fields.splice(position - 1, 1);
+        this.stateChange.publish(this.value)
+    }
+
+    reset(){
+        this.fields = [];
+        this.stateChange.publish(this.value)
+    }
+
+    addForm(form){
+        this.fields.push(form);
+        this.stateChange.publish(this.value)
     }
 
     get value() {

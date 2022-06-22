@@ -25,7 +25,7 @@ export class Fields {
 
     _add(value){
         if (value instanceof Object) {
-            this.fields.push(new Form([value, this.validators]))
+            this.fields.push(new Form(value))
         } else {
             this.fields.push(new Field(value, this.validators))
         }

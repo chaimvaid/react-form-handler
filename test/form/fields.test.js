@@ -3,6 +3,7 @@ import {ErrorMsg} from '../../form/errors'
 import { Field } from '../../form/field';
 import { Publisher } from '../../form/publisher';
 import React from 'react';
+import { Form } from '../../form/form';
  
 describe('Fields',()=>{
     it('should implement valid getter set to true by default', ()=>{
@@ -31,6 +32,14 @@ describe('Fields',()=>{
             expect(f.fields[1].value).toBe('string2')
             
         })
+
+        it('should init Form fo object fields', ()=>{
+            
+            let f = new Fields([{test: 'test'}])
+            expect(f.fields[0]).toBeInstanceOf(Form)
+            
+            
+        })
         it('should pass validators into fields', ()=>{
             let validator = jest.fn();
             validator.mockReturnValue(false);
@@ -52,6 +61,12 @@ describe('Fields',()=>{
             let f = new Fields(['string1', 'string2'])
             f.add('string2');
             expect(f.fields[2]).toBeInstanceOf(Field)
+        })
+
+        test('added item should be Form for object', ()=>{
+            let f = new Fields([{test: 'test'}])
+            f.add({test: 'test'});
+            expect(f.fields[1]).toBeInstanceOf(Form)
         })
 
         test('added item should get validator', ()=>{

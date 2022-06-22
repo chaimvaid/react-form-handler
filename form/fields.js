@@ -14,21 +14,24 @@ export class Fields {
         }
         this.validators = validators;
         fields.map(f=>this._add(f))
-        this.fields.forEach(f => {
-            f.stateChange.subscribe(()=>{this.stateChange.publish(this.value)})
-        });
+        // this.fields.forEach(f => {
+        //     f.stateChange.subscribe(()=>{this.stateChange.publish(this.value)})
+        // });
     }
-
+    
     get valid () {
         return !this.fields.find(f=>!f.valid);
     }
-
+    
     _add(value){
+        let f;
         if (value instanceof Object) {
-            this.fields.push(new Form(value))
+            f= new Form(value)
         } else {
-            this.fields.push(new Field(value, this.validators))
+            f= new Field(value, this.validators)
         }
+        f.stateChange.subscribe(()=>{this.stateChange.publish(this.value)})
+        this.fields.push(f)
     }
 
     add (value) {
@@ -47,6 +50,7 @@ export class Fields {
     }
 
     addForm(form){
+        form.stateChange.subscribe(()=>{this.stateChange.publish(this.value)})
         this.fields.push(form);
         this.stateChange.publish(this.value)
     }

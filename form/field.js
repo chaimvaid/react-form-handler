@@ -4,6 +4,7 @@ import { Publisher } from "./publisher";
 export class Field {
     
     _value;
+    _disabled = false;
     validators = [];//[{(value)=>{}, 'error_msg'}]
     
     constructor (value, validators) {
@@ -50,9 +51,20 @@ export class Field {
                 // e.target.setCustomValidity(!this.valid ? "Invalid field." : '')
                 this._touched = true;
                 this.stateChange.publish(this.value)
-            }
+            },
+            disabled: this._disabled
         }
     } 
+
+    disable () {
+        this._disabled = true;
+        this.stateChange.publish(this.value)
+    }
+    
+    enable () {
+        this._disabled = false;
+        this.stateChange.publish(this.value)
+    }
 
     stateChange = new Publisher
 }

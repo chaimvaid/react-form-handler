@@ -26,6 +26,37 @@ function TestFieldChangeValueComponent ({fieldDef}) {
     ) 
 }
 
+function TestFieldDisableComponent ({fieldDef}) {
+    let field = useField(fieldDef)
+    useEffect(() => {
+        field.disable()
+    }, [])
+    return (
+        <div>
+
+            <input {...field.inputProps} />
+            {field && field.valid && field.touched && <p>
+                {field.value}
+            </p>}
+        </div>
+    ) 
+}
+function TestFieldEnabledComponent ({fieldDef}) {
+    let field = useField(fieldDef)
+    useEffect(() => {
+        field.enable()
+    }, [])
+    return (
+        <div>
+
+            <input {...field.inputProps}  />
+            {field && field.valid && field.touched && <p>
+                {field.value}
+            </p>}
+        </div>
+    ) 
+}
+
 describe('useField', ()=>{
     it('should return object', () => {
         
@@ -63,6 +94,26 @@ describe('useField', ()=>{
         expect(component.text()).toBe('test')
         input.simulate('change', {target: {value: changedValue}})
         expect(component.text()).toBe(changedValue)
+
+    })
+
+    test('input should be disabled if Field.disable() is called',  () => { 
+        const changedValue = 'changedValue';
+        let component = mount(<TestFieldDisableComponent fieldDef={['test']} />)
+        let input = component.find('input')
+        
+        expect(input.prop('disabled')).toBe(true)
+        
+
+    })
+
+    test('input should be enabled if Field.enable() is called',  () => { 
+        const changedValue = 'changedValue';
+        let component = mount(<TestFieldEnabledComponent fieldDef={['test']} />)
+        let input = component.find('input')
+        
+        expect(input.prop('disabled')).toBe(false)
+        
 
     })
 

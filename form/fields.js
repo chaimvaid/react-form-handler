@@ -40,7 +40,7 @@ export class Fields {
     }
 
     removeAt(position){
-        this.fields.splice(position, 1);
+        this.fields = this.fields.filter((s,index) => position !== index)
         this.stateChange.publish(this.value)
     }
 

@@ -40,7 +40,7 @@ export class Fields {
     }
 
     removeAt(position){
-        this.fields.splice(position - 1, 1);
+        this.fields.splice(position, 1);
         this.stateChange.publish(this.value)
     }
 

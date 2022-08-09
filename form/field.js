@@ -66,5 +66,11 @@ export class Field {
         this.stateChange.publish(this.value)
     }
 
+    reset () {
+        this._value = '';
+        this._touched = false;
+        this.stateChange.publish(this.value)
+    }
+
     stateChange = new Publisher
 }

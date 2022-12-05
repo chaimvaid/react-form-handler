@@ -22,7 +22,7 @@ export class Field {
     }
 
     get errors () {
-        return this.validators.reduce((errors, validator)=>[...errors, ...(!validator[0](this._value) ? [validator[1]] : [])], [])
+        return this.validators.reduce((errors, validator)=>[...errors, ...(!validator[0](this._value) ? [typeof validator[1] === "function" ? validator[1]() : validator[1]] : [])], [])
     }
     
     get value(){  

@@ -95,6 +95,15 @@ describe('Field', ()=>{
             validator.mockReturnValue(false);
             expect(f.errors).toContain('error');
         })
+
+        test('errors should contain \'error\' for function' , () => {
+            const _validator = jest.fn();
+            const _f  = new Field('value', [[_validator, ()=>'error']])
+            _validator.mockReturnValue(false);
+            expect(_f.errors).toContain('error');
+        })
+
+
               
     })
 

@@ -204,7 +204,7 @@ form.stateChange.subscribe((currentValue, prevValue) => {
 ```
 
 
-**_NOTE:_** Inside Function component you should wrap the subscriber inside useEffect!
+**_NOTE:_** Inside Function component you should wrap the subscriber by useEffect!
 
 
 # contribution

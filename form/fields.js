@@ -7,6 +7,7 @@ export class Fields {
     
     fields = [];
     validators;
+    prevValue = [];
 
     constructor (fields, validators) {
         if(!Array.isArray(fields)){
@@ -30,8 +31,13 @@ export class Fields {
         } else {
             f= new Field(value, this.validators)
         }
-        f.stateChange.subscribe(()=>{this.stateChange.publish(this.value)})
+        f.stateChange.subscribe(()=>{
+            if (JSON.stringify(this.prevValue) !== JSON.stringify(this.value)) {
+                this.stateChange.publish(this.value, this.prevValue)
+            }
+        })
         this.fields.push(f)
+        this.prevValue = this.value
     }
 
     add (value) {

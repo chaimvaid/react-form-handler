@@ -192,6 +192,21 @@ you can call clearAllFields in this way this function will clear all form's fiel
 ```
 form.clearAllFields()
 ```
+
+# stateChange
+
+you can subscribe to changes in the values of single Field Array of Fields or to Entire form
+
+```
+form.stateChange.subscribe((currentValue, prevValue) => {
+    //do something
+})
+```
+---
+**_NOTE:_**
+in react hook usage it should be done inside useEffect!
+---
+
 # contribution
 
 This library is fully tested contribution must be supported by Unit test.  

@@ -7,8 +7,8 @@ export class Publisher{
         return {unsubscribe: () => {delete this.subscribers[key]}}
     }
 
-    publish = (value) => {
-        Object.keys(this.subscribers).forEach(key=>this.subscribers[key](value))
+    publish = (currentValue, prevValue) => {
+        Object.keys(this.subscribers).forEach(key=>this.subscribers[key](currentValue, prevValue))
     }
 
     generateKey() {

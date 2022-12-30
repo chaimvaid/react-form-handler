@@ -82,7 +82,7 @@ describe('Fields',()=>{
     describe('removeField', ()=>{
         test('remove correct item ', ()=>{
             let f = new Fields(['string1', 'string2', 'string3'])
-            f.removeAt(2);
+            f.removeAt(1);
             expect(f.fields.length).toBe(2)
             expect(f.fields[1].value).toBe('string3')
         })
@@ -114,7 +114,7 @@ describe('Fields',()=>{
             fields.stateChange.subscribe(fn)
             fields.fields[0].value = 'value1' 
             fields.fields[1].value = 'value2' 
-            expect(fn).toBeCalledWith(['value1', 'value2', 'string3'])
+            expect(fn).toBeCalledWith(['value1', 'value2', 'string3'], ['string1', 'string2', 'string3'])
             expect(fn).toBeCalledTimes(2)
         })
     })

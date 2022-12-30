@@ -34,8 +34,11 @@ export class Field {
     }
 
     set value(value){
+        const prevValue = JSON.parse(JSON.stringify(this._value));
         this._value = value; 
-        this.stateChange.publish(value)
+        if (prevValue !== value) {
+            this.stateChange.publish(value, prevValue)
+        }
     }
 
     onChange = ({target:{value}}) => {

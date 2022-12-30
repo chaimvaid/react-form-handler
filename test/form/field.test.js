@@ -175,14 +175,15 @@ describe('Field', ()=>{
             let field =  new Field('') 
             expect(field.stateChange).toBeInstanceOf(Publisher)
         })
+
         it('should publish field value when value is changed', () => {
-            let field =  new Field('')
+            let field =  new Field('value_1')
             let fn = jest.fn();
             field.stateChange.subscribe(fn)
-            field.value = 'value' 
-            field.onChange({target:{value: 'value'}}) 
-            expect(fn).toBeCalledWith('value')
-            expect(fn).toBeCalledTimes(2)
+            // field.value = 'value_1' 
+            field.onChange({target:{value: 'value_2'}}) 
+            expect(fn).toBeCalledWith('value_2', 'value_1')
+            expect(fn).toBeCalledTimes(1)
         })
     })
 

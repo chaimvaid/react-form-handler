@@ -6,6 +6,7 @@ import { Publisher } from "./publisher";
 export class Form {
     
     fields;
+    prevValue = {};
     
 
     constructor(fields){
@@ -13,6 +14,7 @@ export class Form {
             throw Error(ErrorMsg.MUST_BE_OBJECT);
         }
         this.fields = Object.keys(fields).reduce((f, k) => Object.assign(f, {[k]: this._add(fields[k])}), {});
+        this.prevValue = this.value;
     }
 
     get valid () {
@@ -27,15 +29,19 @@ export class Form {
                 this.fields[k] = this._add(field[k])
             })
         }
-        this.stateChange.publish(this.value)
+        this.stateChange.publish(this.value, this.prevValue)
+        this.prevValue = this.value;
     }
 
     remove (name) {
-        delete this.fields[name]
+        if (this.fields[name]){
+            delete this.fields[name]
+            this.stateChange.publish(this.value, this.prevValue)
+        }
     }
 
     get value() {
-        return Object.keys(this.fields).reduce((values, k) => {
+        return Object.keys(this.fields || {}).reduce((values, k) => {
             return Object.assign(values, {[k]: this.fields[k].value})
         }, {})
     }
@@ -43,15 +49,15 @@ export class Form {
     _add(fieldVal) {
         let field
         if(fieldVal instanceof Fields) {
-            fieldVal.stateChange.subscribe(()=>{ this.stateChange.publish(this.value)})
+            fieldVal.stateChange.subscribe(()=>{ this.stateChange.publish(this.value, this.prevValue)})
             return fieldVal
         } else {
             if (typeof fieldVal === 'object' &&!Array.isArray(fieldVal) && fieldVal !== null) {
                 field = new Form(fieldVal)
-                field.stateChange.subscribe(()=>{ this.stateChange.publish(this.value)})
+                field.stateChange.subscribe(()=>{ this.stateChange.publish(this.value, this.prevValue)})
             } else {
                 field = new Field(...(Array.isArray(fieldVal) ? fieldVal : [fieldVal]))
-                field.stateChange.subscribe(()=>{ this.stateChange.publish(this.value)})
+                field.stateChange.subscribe(()=>{ this.stateChange.publish(this.value, this.prevValue)})
             }
             return field;
         }

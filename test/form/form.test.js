@@ -22,7 +22,14 @@ describe('Form',()=>{
         let f = new Form({});
         jest.spyOn(f.stateChange, 'publish')
         f.add('test');
-        expect(f.stateChange.publish).toHaveBeenCalledWith(f.value)
+        expect(f.stateChange.publish).toHaveBeenCalledWith(f.value, {})
+    })
+
+    it('should call valueChange publish when form.remove is called', ()=>{
+        let f = new Form({test: 'test'});
+        jest.spyOn(f.stateChange, 'publish')
+        f.remove('test');
+        expect(f.stateChange.publish).toHaveBeenCalledWith(f.value, {test: 'test'})
     })
 
 
@@ -267,23 +274,54 @@ describe('Form',()=>{
         })
         it('should publish field value when value is changed', () => {
             let f = new Form({
-                'field1': 'value1',
-                'field2': 'value2',
-                'fields': new Fields(['value3', 'value4'])
+                'field1': 'string1',
+                'field2': 'string2',
+                'fields': new Fields(['value3', 'string4'])
             })
             
             
             let fn = jest.fn();
             f.stateChange.subscribe(fn)
             f.fields.field1.value = 'value1' 
-            f.fields.field2.value = 'value2' 
-            f.fields.fields.fields[0].value = 'value3' 
+            
             expect(fn).toBeCalledWith({
                 'field1': 'value1',
-                'field2': 'value2',
-                'fields': ['value3', 'value4'],
+                'field2': 'string2',
+                'fields': ['value3', 'string4'],
+            },
+            {
+                'field1': 'string1',
+                'field2': 'string2',
+                'fields': ['value3', 'string4'],
+            }
+            )
+            expect(fn).toBeCalledTimes(1)
+        })
+
+        it('should publish fields value when fields is changed', () => {
+            let f = new Form({
+                'field1': 'string1',
+                'field2': 'string2',
+                'fields': new Fields(['value3', 'string4'])
             })
-            expect(fn).toBeCalledTimes(3)
+            
+            
+            let fn = jest.fn();
+            f.stateChange.subscribe(fn)
+            f.fields.fields.add('value5')
+            
+            expect(fn).toBeCalledWith({
+                'field1': 'string1',
+                'field2': 'string2',
+                'fields': ['value3', 'string4', 'value5'],
+            },
+            {
+                'field1': 'string1',
+                'field2': 'string2',
+                'fields': ['value3', 'string4'],
+            }
+            )
+            expect(fn).toBeCalledTimes(1)
         })
     })
 

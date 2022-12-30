@@ -31,7 +31,21 @@ describe('Publisher',()=>{
         let value = 'test'
         subscription.unsubscribe()
         p.publish(value)
-        expect(fn).toHaveBeenCalledWith(value)
+        expect(fn).toHaveBeenCalledWith(value, undefined)
+        expect(fn).toHaveBeenCalledTimes(2)
+    })
+
+    it('should call callback when publish is called with prev and current value', ()=>{
+        let p = new Publisher();
+        let fn = jest.fn()
+        let subscription = p.subscribe(fn);
+        p.subscribe(fn);
+        p.subscribe(fn);
+        let currentValue = 'current value'
+        let prevValue = 'prev value'
+        subscription.unsubscribe()
+        p.publish(currentValue, prevValue)
+        expect(fn).toHaveBeenCalledWith(currentValue, prevValue)
         expect(fn).toHaveBeenCalledTimes(2)
     })
 })

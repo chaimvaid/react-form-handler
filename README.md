@@ -199,7 +199,15 @@ you can subscribe to changes in the values of single Field Array of Fields or to
 
 ```
 form.stateChange.subscribe((currentValue, prevValue) => {
-    //do something
+    //do something with form value
+})
+
+fields.stateChange.subscribe((currentValue, prevValue) => {
+    //do something with array of values
+})
+
+field.stateChange.subscribe((currentValue, prevValue) => {
+    //do with single value
 })
 ```
 

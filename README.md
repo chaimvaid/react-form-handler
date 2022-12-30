@@ -202,10 +202,10 @@ form.stateChange.subscribe((currentValue, prevValue) => {
     //do something
 })
 ```
----
-**_NOTE:_**
-in react hook usage it should be done inside useEffect!
----
+
+
+**_NOTE:_** Inside Function component you should wrap the subscriber inside useEffect!
+
 
 # contribution
 
